@@ -1,7 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import Ship from './components/Ship';
 
 function App() {
+  const ship = Ship();
+  console.log(ship);
+
   return (
     <div className="App">
       <header className="App-header">

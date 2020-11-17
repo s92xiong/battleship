@@ -1,9 +1,3 @@
-import Ship from './components/Ship';
+import App from './App';
 
-test('Ship function exists', () => {
-  expect(Ship).toBeDefined();
-});
-
-// test('Objects are a specific size', () => {
-//   expect()
-// })
+test('App exists', () => expect(App).toBeDefined());
