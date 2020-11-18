@@ -4,15 +4,13 @@ function Ship(length) {
   newArray.fill(false);
 
   // Target the ship's hit box
-  const hit = (array, pos) => array[pos] = true;
+  const hit = (array, x, y) => array[x][y] = true;
   
   // If all elements in the array return true, then the ship is sunk
   const isSunk = (array) => {
     let sum = 0;
     for (let i = 0; i < array.length; i++) {
-      if (array[i] === true) {
-        sum++;
-      }
+      if (array[i] === true) sum++;
     }
     if (sum === array.length) {
       return true;

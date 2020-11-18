@@ -4,18 +4,18 @@ test('Ship function exists', () => expect(Ship).toBeDefined());
 test('Ship returns an object', () => expect(typeof Ship()).toBe("object"));
 
 test("Ship length", () => {
-  const shipLength = Ship(2);
-  expect(shipLength.array.length).toBe(2);
+  const shipObj = Ship(2);
+  expect(shipObj.array.length).toBe(2);
 });
 
 test("Ship has been hit", () => {
-  const shipLength = Ship(4);
-  shipLength.hit(shipLength.array, 2);
-  expect(shipLength.array).toEqual([false, false, true, false]);
+  const shipObj = Ship(4);
+  shipObj.hit(shipObj.array, 2);
+  expect(shipObj.array).toEqual([false, false, true, false]);
 });
 
 test("Ship is sunk", () => {
-  const shipLength = Ship(4);
-  shipLength.array.fill(true);
-  expect(shipLength.isSunk(shipLength.array)).toBeTruthy();
+  const shipObj = Ship(4);
+  shipObj.array.fill(true);
+  expect(shipObj.isSunk(shipObj.array)).toBeTruthy();
 });
