@@ -32,6 +32,7 @@ function Gameboard() {
   };
 
   return {
+    board,
     placeShip,
     receiveAttack,
     allShipsSunk,
