@@ -19,16 +19,20 @@ function Gameboard() {
     return board[x][y];
   };
 
-  const allShipsSunk = () => {
+  const allShipsSunk = (totalBoxes) => {
     // Iterate through the board array to see if all ships and its elements have been hit
     let outerSum = 0;
-    const totalBoxes = 17;
+    // const totalBoxes = 17;
     board.forEach(row => row.forEach(square => {
       if (square === true) outerSum++;
     }));
-    (outerSum === totalBoxes) ? 
-      console.log("All ships sunk") : 
-      console.log("Enemy ships are still afloat");
+    if (outerSum === totalBoxes) {
+      console.log("All ships have been sunk")
+      return true;
+    } else {
+      console.log("Some ships are still afloat");
+      return false;
+    }
   };
 
   return {
