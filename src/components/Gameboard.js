@@ -11,7 +11,10 @@ function Gameboard() {
   const receiveAttack = (ship, x, y) => {
     // Determine if attack hit a ship
     if (board[x][y] === "ship") {
-      ship.hit(board, x, y);
+      // do something to ship.array???
+      // ship.array.splice(0, 1);
+      board[x][y] = true;
+      ship.hit(ship.array);
     } else {
       board[x][y] = "miss"
     }
@@ -20,17 +23,15 @@ function Gameboard() {
   };
 
   const allShipsSunk = (totalBoxes) => {
-    // Iterate through the board array to see if all ships and its elements have been hit
+    // Iterate through board array to see if all ships and its elements have been hit
     let outerSum = 0;
     // const totalBoxes = 17;
     board.forEach(row => row.forEach(square => {
       if (square === true) outerSum++;
     }));
     if (outerSum === totalBoxes) {
-      console.log("All ships have been sunk")
       return true;
     } else {
-      console.log("Some ships are still afloat");
       return false;
     }
   };

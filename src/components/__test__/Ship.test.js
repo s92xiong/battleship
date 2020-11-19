@@ -10,12 +10,12 @@ test("Ship length", () => {
 
 test("Ship has been hit", () => {
   const shipObj = Ship(4);
-  shipObj.hit(shipObj.array, 2);
-  expect(shipObj.array).toEqual([false, false, true, false]);
+  shipObj.hit(shipObj.array);
+  expect(shipObj.array).toEqual([false, false, false]);
 });
 
 test("Ship is sunk", () => {
-  const shipObj = Ship(4);
-  shipObj.array.fill(true);
-  expect(shipObj.isSunk(shipObj.array)).toBeTruthy();
+  const shipObj = Ship(1);
+  shipObj.array.splice(0, 1);
+  expect(shipObj.isSunk(shipObj.array)).toBe(true);
 });
