@@ -1,4 +1,4 @@
-function Ship(length) {
+function Ship(length, orientation) {
   // Create a new array and fill all elements with the value false
   const newArray = new Array(length);
   newArray.fill(false);
@@ -11,7 +11,7 @@ function Ship(length) {
 
   return {
     array: newArray,
-    isVertical: false,
+    orientation: orientation,
     hit,
     isSunk,
   };

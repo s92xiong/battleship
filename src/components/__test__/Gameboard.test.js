@@ -1,8 +1,6 @@
 import Gameboard from '../Gameboard';
 import Ship from '../Ship';
 
-test('Gameboard function exists', () => expect(Gameboard).toBeDefined());
-
 test("Ship placed @ 1-1 w/ shipLength of 2 squares, horizontal orientation", () => {
   const gameboard = Gameboard();
   gameboard.placeShip(Ship(2), 1, 1);

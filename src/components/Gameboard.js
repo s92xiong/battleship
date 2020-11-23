@@ -1,24 +1,20 @@
-function Gameboard() {
+function Gameboard(board) {
   // Create one array that contains 10 arrays, each array contains 10 elements
-  const board = Array(10).fill([]).map(array => Array(10));
+  // const board = Array(10).fill([]).map(array => Array(10).fill());
   
   // Determine ship placement on board, (ship is executed as an argument)
   const placeShip = (ship, x, y) => (ship.isVertical) ? 
     ship.array.forEach((el, i) => board[x][y + i] = "ship") : 
     ship.array.forEach((el, i) => board[x + i][y] = "ship");
 
-  // "ship" is the object returned when you execute Ship(length)
+  // Determine if attack hits a ship & record coordinates of missed shot
   const receiveAttack = (ship, x, y) => {
-    // Determine if attack hit a ship
     if (board[x][y] === "ship") {
-      // do something to ship.array???
-      // ship.array.splice(0, 1);
       board[x][y] = true;
       ship.hit(ship.array);
     } else {
-      board[x][y] = "miss"
+      board[x][y] = "miss";
     }
-    // Record coordinates of missed shot
     return board[x][y];
   };
 

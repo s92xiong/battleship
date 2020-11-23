@@ -1,6 +1,5 @@
 import Ship from '../Ship';
 
-test('Ship function exists', () => expect(Ship).toBeDefined());
 test('Ship returns an object', () => expect(typeof Ship()).toBe("object"));
 
 test("Ship length", () => {
