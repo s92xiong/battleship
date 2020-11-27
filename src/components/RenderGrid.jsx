@@ -6,8 +6,8 @@ const RenderGrid = ({className, board}) => {
       {
         (board && board.length > 0) ?
         board.map(col => col.map((box, i) => {
-          if (box === "ship") return <div key={i} className="grid-box-ship"></div>;
-          else if (box === "hit") return <div key={i} className="grid-box-hit"></div>
+          if (box === "ship") return <div key={i} className="grid-box-ship" data-testid="data-ship"></div>;
+          else if (box === "hit") return <div key={i} className="grid-box-hit" data-testid="data-hit"></div>
           return <div key={i} className="grid-box"></div>;
         })) :
         "Loading..."
