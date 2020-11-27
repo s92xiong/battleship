@@ -16,5 +16,5 @@ test("Ship has been hit", () => {
 test("Ship is sunk", () => {
   const shipObj = Ship(1);
   shipObj.array.splice(0, 1);
-  expect(shipObj.isSunk(shipObj.array)).toBe(true);
+  expect(shipObj.shipIsSunk(shipObj.array)).toBe(true);
 });

@@ -1,21 +1,24 @@
-function Gameboard(board) {
-  // Create one array that contains 10 arrays, each array contains 10 elements
-  // const board = Array(10).fill([]).map(array => Array(10).fill());
+import preventOverlap from "./preventOverlap";
+import Ship from "./Ship";
+
+function Gameboard (board, setBoard, coordinates, setCoordinates) {
   
-  // Determine ship placement on board, (ship is executed as an argument)
-  const placeShip = (ship, x, y) => (ship.isVertical) ? 
-    ship.array.forEach((el, i) => board[x][y + i] = "ship") : 
-    ship.array.forEach((el, i) => board[x + i][y] = "ship");
+  const placeShip = (shipLength, orientation, x, y) => {
+    return () => {
+      // "coordinates" is an array of strings, iterate through this array to check if overlap occurs
+      preventOverlap(Ship(shipLength, orientation), x, y, board, setBoard, coordinates, setCoordinates);
+    };
+  };
 
   // Determine if attack hits a ship & record coordinates of missed shot
-  const receiveAttack = (ship, x, y) => {
-    if (board[x][y] === "ship") {
-      board[x][y] = true;
-      ship.hit(ship.array);
+  const receiveAttack = (x, y) => {
+    if (board[y][x] === "ship") {
+      board[y][x] = true;
+      Ship.hit(Ship.array);
     } else {
-      board[x][y] = "miss";
+      board[y][x] = "miss";
     }
-    return board[x][y];
+    return board[y][x];
   };
 
   const allShipsSunk = (totalBoxes) => {
@@ -33,10 +36,7 @@ function Gameboard(board) {
   };
 
   return {
-    board,
-    placeShip,
-    receiveAttack,
-    allShipsSunk,
+    placeShip, receiveAttack, allShipsSunk,
   };
 }
 

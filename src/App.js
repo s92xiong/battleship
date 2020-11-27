@@ -1,19 +1,16 @@
-import React from 'react';
-import './App.css';
-import PlayerBoardState from './components/playerBoardState';
-
+import React, { useState } from 'react';
+import Gameboard from './components/Gameboard';
 import RenderGrid from './components/RenderGrid.jsx';
+import './App.css';
+import RenderButtons from './components/RenderButtons';
 
 function App() {
-  // const [playerBoard, setPlayerBoard] = useState(Array(10).fill().map(array => Array(10).fill(undefined)));
-  const { PlaceShip, playerBoard } = PlayerBoardState();
-  
-  // const [pcCoordinates, setPCCoordinates] = useState([]);
-  // const [pcBoard, setPCBoard] = useState(Array(10).fill().map(array => Array(10).fill(undefined)));
+  const [playerBoard, setPlayerBoard] = useState(Array(10).fill().map(array => Array(10).fill(undefined)));
+  const [playerCoordinates, setPlayerCoordinates] = useState([]);
 
-  // NEXT STEPS:
-  // (3) Unit test placeShip component --> give the component an overlap point, and test to see if it is overlapping
-  
+  // eslint-disable-next-line no-unused-vars
+  const { placeShip } = Gameboard(playerBoard, setPlayerBoard, playerCoordinates, setPlayerCoordinates);
+    
   return (
     <div className="App">
       <div className="header">
@@ -22,17 +19,8 @@ function App() {
       <div className="container">
         <RenderGrid className="player-board" board={playerBoard} />
         <RenderGrid className="pc-board" board={playerBoard} />
-        <button 
-          onClick={PlaceShip(4, "vertical", 3, 0)}
-        >
-          Place 1st Ship
-        </button>
-        <button 
-          onClick={PlaceShip(4, "horizontal", 0, 3)}
-        >
-          Place 2nd Ship
-        </button>
       </div>
+      <RenderButtons />
     </div>
   );
 }

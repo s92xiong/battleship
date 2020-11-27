@@ -7,13 +7,13 @@ function Ship(length, orientation) {
   const hit = (array) => array.splice(0, 1);
   
   // If all elements in the array return true, then the ship is sunk
-  const isSunk = (array) => (array === undefined || array.length < 1) ? true : false;
+  const shipIsSunk = (array) => (array === undefined || array.length < 1) ? true : false;
 
   return {
     array: newArray,
     orientation: orientation,
     hit,
-    isSunk,
+    shipIsSunk,
   };
 }
 

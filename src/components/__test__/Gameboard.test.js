@@ -1,5 +1,4 @@
 import Gameboard from '../Gameboard';
-import Ship from '../Ship';
 
 test("Gameboard.js is defined", () => {
   expect(Gameboard).toBeDefined();
