@@ -1,14 +1,39 @@
-import preventOverlap from "./preventOverlap";
 import Ship from "./Ship";
 
-function Gameboard (board, setBoard, coordinates, setCoordinates) {
+function Gameboard (board, setBoard) {
   
-  const placeShip = (shipLength, orientation, x, y) => {
-    return () => {
-      // "coordinates" is an array of strings, iterate through this array to check if overlap occurs
-      preventOverlap(Ship(shipLength, orientation), x, y, board, setBoard, coordinates, setCoordinates);
-    };
-  };
+  const placeShip = (shipLength, x, y, orientation) => {
+    const max = 10 - shipLength;
+
+    const newBoard = [...board];
+    // const ship = Ship(shipLength, orientation);
+
+    // Randomly pick x & y coordinates and orientation
+    if (orientation === null || x === null || y === null) {
+      orientation = ((Math.floor(Math.random() * 10) + 1) > 5) ? "horizontal" : "vertical";
+      x = Math.floor(Math.random() * (max - 0 + 1)) + 0;
+      y = Math.floor(Math.random() * (max - 0 + 1)) + 0;
+    }
+  
+    // Prevent Overlap
+    for (let i = 0; i < shipLength; i++) {
+      const square = (orientation === "horizontal") ? newBoard[y][x + i] : newBoard[y + i][x];
+      if (square === "ship") {
+        return placeShip(shipLength, null, null, null);
+      }
+    }
+
+    for (let i = 0; i < shipLength; i++) {
+      if (orientation === "horizontal") {
+        newBoard[y][x + i] = "ship";
+      } else {
+        newBoard[y + i][x] = "ship";
+      }
+    }
+
+    console.table(newBoard);
+    setBoard(newBoard);
+  }
 
   // Determine if attack hits a ship & record coordinates of missed shot
   const receiveAttack = (x, y) => {

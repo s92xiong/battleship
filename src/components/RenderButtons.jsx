@@ -1,13 +1,14 @@
+import '../styles/buttons.css';
 import play from '../images/play.png';
 import shuffle from '../images/shuffle.png';
 import trash from '../images/trash.png';
 
-const RenderButtons = () => (
+const RenderButtons = ({ handleClick }) => (
   <div className="button-list">
     <div className="play-icon icon">
       <img src={play} alt=""/>
     </div>
-    <div className="shuffle-icon icon">
+    <div onClick={handleClick} className="shuffle-icon icon">
       <img src={shuffle} alt=""/>
     </div>
     <div className="trash-icon icon">

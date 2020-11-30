@@ -6,11 +6,18 @@ import RenderButtons from './components/RenderButtons';
 
 function App() {
   const [playerBoard, setPlayerBoard] = useState(Array(10).fill().map(array => Array(10).fill(undefined)));
-  const [playerCoordinates, setPlayerCoordinates] = useState([]);
 
   // eslint-disable-next-line no-unused-vars
-  const { placeShip } = Gameboard(playerBoard, setPlayerBoard, playerCoordinates, setPlayerCoordinates);
-    
+  const { placeShip } = Gameboard(playerBoard, setPlayerBoard);
+  
+  const autoplace = () => {
+    placeShip(2, null, null, null);
+    placeShip(3, null, null, null);
+    placeShip(3, null, null, null);
+    placeShip(4, null, null, null);
+    placeShip(5, null, null, null);
+  };
+
   return (
     <div className="App">
       <div className="header">
@@ -20,7 +27,7 @@ function App() {
         <RenderGrid className="player-board" board={playerBoard} />
         <RenderGrid className="pc-board" board={playerBoard} />
       </div>
-      <RenderButtons />
+      <RenderButtons handleClick={autoplace} />
     </div>
   );
 }
