@@ -1,33 +1,53 @@
 import React, { useState } from 'react';
+import './App.css';
+import { autoPlacePlayerShips, autoPlaceComputerShips } from './components/autoPlacement';
 import Gameboard from './components/Gameboard';
 import RenderGrid from './components/RenderGrid.jsx';
-import './App.css';
 import RenderButtons from './components/RenderButtons';
 
 function App() {
-  const [playerBoard, setPlayerBoard] = useState(Array(10).fill().map(array => Array(10).fill(undefined)));
+  // Initialize state for player and computer battleship board
+  const [playerBoard, setPlayerBoard] = useState(Array(10).fill([]).map(array => Array(10).fill(null)));
+  const [computerBoard, setComputerBoard] = useState(Array(10).fill([]).map(array => Array(10).fill(null)));
 
-  // eslint-disable-next-line no-unused-vars
-  const { placeShip } = Gameboard(playerBoard, setPlayerBoard);
+  // Get objects from Gameboard using player and computer board state
+  const { 
+    placeShip: placePlayerShip,  
+    clearBoard,
+  } = Gameboard(playerBoard, setPlayerBoard);
   
-  const autoplace = () => {
-    placeShip(2, null, null, null);
-    placeShip(3, null, null, null);
-    placeShip(3, null, null, null);
-    placeShip(4, null, null, null);
-    placeShip(5, null, null, null);
+  const { 
+    placeShip: placeComputerShip,
+  } = Gameboard(computerBoard, setComputerBoard);
+
+  const startGame = () => {
+    // Add ships to computer board
+    autoPlaceComputerShips(placeComputerShip, computerBoard, setComputerBoard)
+    // Check if the game is valid to start
+    let sum = 0;
+    playerBoard.forEach(arr => arr.forEach(square => (square !== null) ? sum++ : sum));
+    computerBoard.forEach(arr => arr.forEach(square => (square !== null) ? sum++ : sum));
+    if (sum === 34) console.log("There are 34 valid squares on the board!");
+  };
+
+  const autoPlaceShips = () => {
+    autoPlacePlayerShips(placePlayerShip, playerBoard, setPlayerBoard);
   };
 
   return (
     <div className="App">
       <div className="header">
-        <h1>BATTLESHIP</h1>
+        <h1 data-testid="battleship-id">BATTLESHIP</h1>
       </div>
       <div className="container">
-        <RenderGrid className="player-board" board={playerBoard} />
-        <RenderGrid className="pc-board" board={playerBoard} />
+        <RenderGrid className="player-board" board={playerBoard} boardType="player" />
+        <RenderGrid className="pc-board" board={computerBoard} boardType="pc" />
       </div>
-      <RenderButtons handleClick={autoplace} />
+      <RenderButtons 
+        playButton={startGame}
+        shuffleButton={autoPlaceShips}
+        deleteButton={clearBoard}
+      />
     </div>
   );
 }

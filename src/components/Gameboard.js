@@ -2,38 +2,38 @@ import Ship from "./Ship";
 
 function Gameboard (board, setBoard) {
   
-  const placeShip = (shipLength, x, y, orientation) => {
-    const max = 10 - shipLength;
-
+  const placeShip = (shipLength, xC, yC, orientation) => {
     const newBoard = [...board];
-    // const ship = Ship(shipLength, orientation);
+    const ship = Ship(shipLength, orientation);
+    
+    let x = xC, y = yC;
 
-    // Randomly pick x & y coordinates and orientation
+    // If player clicked on Shuffle Button - randomly pick x & y coordinates and orientation
+    const max = 10 - shipLength;
     if (orientation === null || x === null || y === null) {
       orientation = ((Math.floor(Math.random() * 10) + 1) > 5) ? "horizontal" : "vertical";
       x = Math.floor(Math.random() * (max - 0 + 1)) + 0;
       y = Math.floor(Math.random() * (max - 0 + 1)) + 0;
     }
   
-    // Prevent Overlap
-    for (let i = 0; i < shipLength; i++) {
+    // Prevent Overlap - check if box has "ship", if yes recursively call placeShip
+    for (let i = 0; i < ship.array.length; i++) {
       const square = (orientation === "horizontal") ? newBoard[y][x + i] : newBoard[y + i][x];
       if (square === "ship") {
         return placeShip(shipLength, null, null, null);
       }
     }
 
-    for (let i = 0; i < shipLength; i++) {
+    // Add ships to the board's state
+    for (let i = 0; i < ship.array.length; i++) {
       if (orientation === "horizontal") {
         newBoard[y][x + i] = "ship";
       } else {
         newBoard[y + i][x] = "ship";
       }
     }
-
-    console.table(newBoard);
     setBoard(newBoard);
-  }
+  };
 
   // Determine if attack hits a ship & record coordinates of missed shot
   const receiveAttack = (x, y) => {
@@ -60,8 +60,12 @@ function Gameboard (board, setBoard) {
     }
   };
 
+  const clearBoard = () => {
+    setBoard(Array(10).fill([]).map(array => Array(10).fill(null)));
+  };
+
   return {
-    placeShip, receiveAttack, allShipsSunk,
+    placeShip, receiveAttack, allShipsSunk, clearBoard
   };
 }
 

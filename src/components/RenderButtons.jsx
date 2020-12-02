@@ -3,15 +3,15 @@ import play from '../images/play.png';
 import shuffle from '../images/shuffle.png';
 import trash from '../images/trash.png';
 
-const RenderButtons = ({ handleClick }) => (
+const RenderButtons = ({ playButton, shuffleButton, deleteButton, playerRef }) => (
   <div className="button-list">
-    <div className="play-icon icon">
+    <div onClick={playButton} className="play-icon icon" data-testid="play-button-id" ref={playerRef}>
       <img src={play} alt=""/>
     </div>
-    <div onClick={handleClick} className="shuffle-icon icon">
+    <div onClick={shuffleButton} className="shuffle-icon icon" data-testid="shuffle-button-id">
       <img src={shuffle} alt=""/>
     </div>
-    <div className="trash-icon icon">
+    <div onClick={deleteButton} className="trash-icon icon" data-testid="delete-button-id">
       <img src={trash} alt=""/>
     </div>
   </div>
