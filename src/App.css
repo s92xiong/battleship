@@ -56,6 +56,9 @@ body {
   gap: 1px;
   background-color: #f3b2518a;
   border: 1px solid #f3b251;
+}
+
+.pc-board-none {
   display: none;
 }
 

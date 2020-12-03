@@ -9,6 +9,10 @@
   background-color: #5c4a4a;
 }
 
+.button-list-none {
+  display: none;
+}
+
 .icon {
   width: 80px;
   height: 100%;
