@@ -60,9 +60,7 @@ function Gameboard (board, setBoard) {
     }
   };
 
-  const clearBoard = () => {
-    setBoard(Array(10).fill([]).map(array => Array(10).fill(null)));
-  };
+  const clearBoard = () => setBoard(Array(10).fill([]).map(array => Array(10).fill(null)));
 
   return {
     placeShip, receiveAttack, allShipsSunk, clearBoard

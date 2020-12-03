@@ -1,4 +1,5 @@
 const autoPlacePlayerShips = (placePlayerShip, playerBoard, setPlayerBoard) => {
+  // Empty array of any potenital pre-existing ships before adding ships onto the board
   const newBoard = [...playerBoard];
   for (let i = 0; i < newBoard.length; i++) {
     for (let j = 0; j < newBoard[i].length; j++) {
@@ -16,6 +17,7 @@ const autoPlacePlayerShips = (placePlayerShip, playerBoard, setPlayerBoard) => {
 };
 
 const autoPlaceComputerShips = (placeComputerShip, computerBoard, setComputerBoard) => {
+  // Empty array of any potenital pre-existing ships before adding ships onto the board
   const newBoard = [...computerBoard];
   for (let i = 0; i < newBoard.length; i++) {
     for (let j = 0; j < newBoard[i].length; j++) {

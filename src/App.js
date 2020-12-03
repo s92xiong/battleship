@@ -7,32 +7,36 @@ import RenderButtons from './components/RenderButtons';
 
 function App() {
   // Initialize state for player and computer battleship board
+  const [isStartGameValid, setGameValid] = useState(false);
   const [playerBoard, setPlayerBoard] = useState(Array(10).fill([]).map(array => Array(10).fill(null)));
   const [computerBoard, setComputerBoard] = useState(Array(10).fill([]).map(array => Array(10).fill(null)));
 
   // Get objects from Gameboard using player and computer board state
-  const { 
-    placeShip: placePlayerShip,  
-    clearBoard,
-  } = Gameboard(playerBoard, setPlayerBoard);
-  
-  const { 
-    placeShip: placeComputerShip,
-  } = Gameboard(computerBoard, setComputerBoard);
+  const { placeShip: placePlayerShip, clearBoard } = Gameboard(playerBoard, setPlayerBoard);
+  const { placeShip: placeComputerShip } = Gameboard(computerBoard, setComputerBoard);
 
   const startGame = () => {
-    // Add ships to computer board
-    autoPlaceComputerShips(placeComputerShip, computerBoard, setComputerBoard)
+    if (isStartGameValid) {
+      // Add ships to computer board
+      autoPlaceComputerShips(placeComputerShip, computerBoard, setComputerBoard);
+    }
+    
     // Check if the game is valid to start
-    let sum = 0;
-    playerBoard.forEach(arr => arr.forEach(square => (square !== null) ? sum++ : sum));
-    computerBoard.forEach(arr => arr.forEach(square => (square !== null) ? sum++ : sum));
-    if (sum === 34) console.log("There are 34 valid squares on the board!");
+    // let sum = 0;
+    // playerBoard.forEach(arr => arr.forEach(square => (square !== null) ? sum++ : sum));
+    // computerBoard.forEach(arr => arr.forEach(square => (square !== null) ? sum++ : sum));
+    // if (sum === 34) console.log("There are 34 valid squares on the board!");
   };
 
   const autoPlaceShips = () => {
     autoPlacePlayerShips(placePlayerShip, playerBoard, setPlayerBoard);
-  };
+    setGameValid(true);
+  }
+
+  const deleteShips = () => {
+    clearBoard();
+    setGameValid(false);
+  }
 
   return (
     <div className="App">
@@ -43,10 +47,11 @@ function App() {
         <RenderGrid className="player-board" board={playerBoard} boardType="player" />
         <RenderGrid className="pc-board" board={computerBoard} boardType="pc" />
       </div>
-      <RenderButtons 
+      <RenderButtons
+        gameValid={isStartGameValid}
         playButton={startGame}
         shuffleButton={autoPlaceShips}
-        deleteButton={clearBoard}
+        deleteButton={deleteShips}
       />
     </div>
   );
