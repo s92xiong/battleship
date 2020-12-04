@@ -3,10 +3,10 @@ function Ship(length, orientation) {
   const newArray = new Array(length);
   newArray.fill(false);
 
-  // Target the ship's hit box on board
+  // Target the ship's hit box on the board
   const hit = (array) => array.splice(0, 1);
   
-  // If all elements in the array return true, then the ship is sunk
+  // If the array is undefined or its length is less than 1, the ship is sunk
   const shipIsSunk = (array) => (array === undefined || array.length < 1) ? true : false;
 
   return {

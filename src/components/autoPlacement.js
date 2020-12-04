@@ -1,37 +1,27 @@
-const autoPlacePlayerShips = (placePlayerShip, playerBoard, setPlayerBoard) => {
+const clearBoard = (board) => {
   // Empty array of any potenital pre-existing ships before adding ships onto the board
-  const newBoard = [...playerBoard];
+  const newBoard = [...board];
   for (let i = 0; i < newBoard.length; i++) {
     for (let j = 0; j < newBoard[i].length; j++) {
-      if (newBoard[i][j] === "ship") {
-        newBoard[i][j] = null;
-      }
+      if (newBoard[i][j] === "ship") newBoard[i][j] = null;
     }
   }
-  setPlayerBoard(newBoard);
-  placePlayerShip(2, null, null, null);
-  placePlayerShip(3, null, null, null);
-  placePlayerShip(3, null, null, null);
-  placePlayerShip(4, null, null, null);
-  placePlayerShip(5, null, null, null);
+  return newBoard;
 };
 
-const autoPlaceComputerShips = (placeComputerShip, computerBoard, setComputerBoard) => {
-  // Empty array of any potenital pre-existing ships before adding ships onto the board
-  const newBoard = [...computerBoard];
-  for (let i = 0; i < newBoard.length; i++) {
-    for (let j = 0; j < newBoard[i].length; j++) {
-      if (newBoard[i][j] === "ship") {
-        newBoard[i][j] = null;
-      }
-    }
+const autoPlacePlayerShips = (playerShips, placePlayerShip, playerBoard, setPlayerBoard) => {
+  setPlayerBoard(clearBoard(playerBoard));
+  // Iterate through the ship object to get the shipLength and orientation, x and y is left as null
+  for (const key in playerShips) {
+    placePlayerShip(playerShips[key].array.length, null, null, playerShips[key].orientation);
   }
-  setComputerBoard(newBoard);
-  placeComputerShip(2, null, null, null);
-  placeComputerShip(3, null, null, null);
-  placeComputerShip(3, null, null, null);
-  placeComputerShip(4, null, null, null);
-  placeComputerShip(5, null, null, null);
+};
+
+const autoPlaceComputerShips = (computerShips, placeComputerShip, computerBoard, setComputerBoard) => {
+  setComputerBoard(clearBoard(computerBoard));
+  for (const key in computerShips) {
+    placeComputerShip(computerShips[key].array.length, null, null, computerShips[key].orientation);
+  }
 };
 
 export { autoPlacePlayerShips, autoPlaceComputerShips };

@@ -1,10 +1,8 @@
-import Ship from "./Ship";
-
 function Gameboard (board, setBoard) {
   
   const placeShip = (shipLength, xC, yC, orientation) => {
     const newBoard = [...board];
-    const ship = Ship(shipLength, orientation);
+    // const ship = Ship(shipLength, orientation);
     
     let x = xC, y = yC;
 
@@ -17,7 +15,7 @@ function Gameboard (board, setBoard) {
     }
   
     // Prevent Overlap - check if box has "ship", if yes recursively call placeShip
-    for (let i = 0; i < ship.array.length; i++) {
+    for (let i = 0; i < shipLength; i++) {
       const square = (orientation === "horizontal") ? newBoard[y][x + i] : newBoard[y + i][x];
       if (square === "ship") {
         return placeShip(shipLength, null, null, null);
@@ -25,7 +23,7 @@ function Gameboard (board, setBoard) {
     }
 
     // Add ships to the board's state
-    for (let i = 0; i < ship.array.length; i++) {
+    for (let i = 0; i < shipLength; i++) {
       if (orientation === "horizontal") {
         newBoard[y][x + i] = "ship";
       } else {
@@ -39,7 +37,7 @@ function Gameboard (board, setBoard) {
   const receiveAttack = (x, y) => {
     if (board[y][x] === "ship") {
       board[y][x] = true;
-      Ship.hit(Ship.array);
+      // Ship.hit(Ship.array);
     } else {
       board[y][x] = "miss";
     }

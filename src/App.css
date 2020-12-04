@@ -67,6 +67,10 @@ body {
   background-color: #393a3f;
 }
 
+.grid-box:hover {
+  background-color: #393a3f54;
+}
+
 .grid-box-ship {
   background-color: red;
 }
