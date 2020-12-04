@@ -56,6 +56,7 @@ body {
   gap: 1px;
   background-color: #f3b2518a;
   border: 1px solid #f3b251;
+  cursor: pointer;
 }
 
 .pc-board-none {
@@ -68,6 +69,14 @@ body {
 
 .grid-box-ship {
   background-color: red;
+}
+
+.grid-box-hit {
+  background-color: green;
+}
+
+.grid-box-miss {
+  background-color: blue;
 }
 
 @media screen and (max-width: 500px) {

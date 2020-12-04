@@ -19,7 +19,7 @@ function App() {
   // Return objects from Gameboard using player & computer state as arguments
   const { placeShip: placePlayerShip, clearBoard } = Gameboard(playerBoard, setPlayerBoard);
   const { placeShip: placeComputerShip } = Gameboard(computerBoard, setComputerBoard);
-
+  
   // If conditions are valid to start game, place ships on computer's board and set state to true
   const startGame = () => {
     if (isStartGameValid) {
@@ -43,14 +43,36 @@ function App() {
     setGameValid(false);
   };
 
+  const clickOnSquare = (e) => {
+    // Obtain string value from element name of the tareget clicked on
+    const array = e.target.getAttribute("name").split('');
+    const y = Number(array[0]);
+    const x = Number(array[1]);
+    
+    const newBoard = [...computerBoard]
+    if (newBoard[y][x] === "ship") newBoard[y][x] = "hit";
+    else if (newBoard[y][x] === null) newBoard[y][x] = "miss";
+    setComputerBoard(newBoard);
+  }
+
   return (
     <div className="App">
       <div className="header">
         <h1 data-testid="battleship-id">BATTLESHIP</h1>
       </div>
       <div className="container">
-        <RenderGrid className="player-board" board={playerBoard} boardType="player" />
-        <RenderGrid className={((!isGameStarted) ? "pc-board-none": "pc-board")} board={computerBoard} boardType="pc" />
+        <RenderGrid 
+          board={playerBoard} 
+          boardType="player"
+          className="player-board" 
+          handleClick={clickOnSquare} 
+        />
+        <RenderGrid 
+          board={computerBoard} 
+          boardType="pc"
+          className={((!isGameStarted) ? "pc-board-none": "pc-board")} 
+          handleClick={clickOnSquare}
+        />
       </div>
       <RenderButtons
         gameStarted={isGameStarted}
