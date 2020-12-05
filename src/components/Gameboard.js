@@ -1,47 +1,38 @@
 function Gameboard (board, setBoard) {
   
   const placeShip = (shipLength, xC, yC, orientation) => {
+    // Copy board and and xy coordinates
     const newBoard = [...board];
-    // const ship = Ship(shipLength, orientation);
-    
     let x = xC, y = yC;
-
-    // If player clicked on Shuffle Button - randomly pick x & y coordinates and orientation
+    
+    // "max" variable keeps ships placed within the board's boundaries
     const max = 10 - shipLength;
+
+    // Randomly pick xy coordinates & orientation if user clicks on Shuffle Button
     if (orientation === null || x === null || y === null) {
       orientation = ((Math.floor(Math.random() * 10) + 1) > 5) ? "horizontal" : "vertical";
       x = Math.floor(Math.random() * (max - 0 + 1)) + 0;
       y = Math.floor(Math.random() * (max - 0 + 1)) + 0;
     }
   
-    // Prevent Overlap - check if box has "ship", if yes recursively call placeShip
+    // Prevent Overlap if box contains the value "ship", is true recursively call placeShip
     for (let i = 0; i < shipLength; i++) {
       const square = (orientation === "horizontal") ? newBoard[y][x + i] : newBoard[y + i][x];
-      if (square === "ship") {
-        return placeShip(shipLength, null, null, null);
-      }
+      if (square === "ship") return placeShip(shipLength, null, null, null);
     }
 
     // Add ships to the board's state
     for (let i = 0; i < shipLength; i++) {
-      if (orientation === "horizontal") {
-        newBoard[y][x + i] = "ship";
-      } else {
-        newBoard[y + i][x] = "ship";
-      }
+      (orientation === "horizontal") ? newBoard[y][x + i] = "ship" : newBoard[y + i][x] = "ship";
     }
     setBoard(newBoard);
   };
 
-  // Determine if attack hits a ship & record coordinates of missed shot
   const receiveAttack = (x, y) => {
-    if (board[y][x] === "ship") {
-      board[y][x] = true;
-      // Ship.hit(Ship.array);
-    } else {
-      board[y][x] = "miss";
-    }
-    return board[y][x];
+    const newBoard = [...board];
+    if (newBoard[y][x] === "ship") newBoard[y][x] = "hit";
+    else if (newBoard[y][x] === null) newBoard[y][x] = "miss";
+    setBoard(newBoard);
   };
 
   const allShipsSunk = (totalBoxes) => {
@@ -58,10 +49,8 @@ function Gameboard (board, setBoard) {
     }
   };
 
-  const clearBoard = () => setBoard(Array(10).fill([]).map(array => Array(10).fill(null)));
-
   return {
-    placeShip, receiveAttack, allShipsSunk, clearBoard
+    placeShip, receiveAttack, allShipsSunk
   };
 }
 
