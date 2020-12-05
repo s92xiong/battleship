@@ -28,8 +28,24 @@ function Gameboard (board, setBoard) {
     setBoard(newBoard);
   };
 
-  const receiveAttack = (x, y) => {
+  const receiveAttack = (xC, yC, attacker) => {
+    // Copy board and and xy coordinates
     const newBoard = [...board];
+    let x = xC, y = yC;
+    
+    if (attacker === "pc") {
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+    }
+
+    if (newBoard[y][x] === "hit" || newBoard[y][x] === "miss") {
+      if (attacker === "pc") {
+        return receiveAttack(null, null, "pc");
+      } else {
+        return true;
+      }
+    }
+
     if (newBoard[y][x] === "ship") newBoard[y][x] = "hit";
     else if (newBoard[y][x] === null) newBoard[y][x] = "miss";
     setBoard(newBoard);

@@ -43,6 +43,7 @@ function App() {
   
   useEffect(() => {
     console.log("PROJECT BATTLESHIP");
+    // console.table(playerBoard);
   });
 
   const handleStartGame = () => {
@@ -73,7 +74,12 @@ function App() {
     const array = e.target.getAttribute("name").split("");
     const y = Number(array[0]);
     const x = Number(array[1]);
-    pcReceivesAttack(x, y);
+
+    // Pick a square on PC's board, if the square has already been selected then stop the function
+    const bool = pcReceivesAttack(x, y, "player");
+    if (bool) return;
+    // PC immediately picks a square on Player's board
+    playerReceivesAttack(null, null, "pc");
   };
 
   return (
