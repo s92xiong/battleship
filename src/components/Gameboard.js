@@ -33,6 +33,7 @@ function Gameboard (board, setBoard) {
     const newBoard = [...board];
     let x = xC, y = yC;
     
+    // PC picks random coordinates to attack
     if (attacker === "pc") {
       x = Math.floor(Math.random() * 10);
       y = Math.floor(Math.random() * 10);
@@ -40,8 +41,10 @@ function Gameboard (board, setBoard) {
 
     if (newBoard[y][x] === "hit" || newBoard[y][x] === "miss") {
       if (attacker === "pc") {
+        // Recursively call receiveAttack until PC picks valid coordinates
         return receiveAttack(null, null, "pc");
       } else {
+        // If player clicks on a square that already contains "ship" or "miss" then function returns true
         return true;
       }
     }
@@ -51,14 +54,14 @@ function Gameboard (board, setBoard) {
     setBoard(newBoard);
   };
 
-  const allShipsSunk = (totalBoxes) => {
-    // Iterate through board array to see if all ships and its elements have been hit
-    let outerSum = 0;
-    // const totalBoxes = 17;
-    board.forEach(row => row.forEach(square => {
-      if (square === true) outerSum++;
-    }));
-    if (outerSum === totalBoxes) {
+  const allShipsSunk = (opponentBoard, setGameOver, setWinner, attacker) => {
+    let tempString = attacker;
+    let sum = 0;
+    opponentBoard.forEach(row => row.forEach(square => (square === "hit") ? sum++ : null));
+    if (sum === 2) {
+      setGameOver(true);
+      setWinner(tempString);
+      // console.log(tempString);
       return true;
     } else {
       return false;

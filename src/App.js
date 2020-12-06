@@ -3,22 +3,24 @@ import './App.css';
 import { autoplacePlayerShips, autoplaceShipsPC } from './components/autoplaceShips';
 import clearArray from './components/clearArray';
 import Gameboard from './components/Gameboard';
-import RenderBoard from './components/RenderBoards.jsx';
+import RenderBoard from './components/RenderBoard.jsx';
 import RenderButtons from './components/RenderButtons';
 import Ship from './components/Ship';
 
 function App() {
   
-  console.clear();
+  // console.clear();
   
-  // Determine if all conditions are met for the game to begin
+  // Initialize variable state to determine if all conditions are met for the game to begin
   const [isGameValid, setGameValid] = useState(false);
   
-  // Determine WHEN the game has officially started
-  const [gameHasStarted, setGameStarted] = useState(false);
+  // Initialize variable state to determine when the game has officially started
+  const [gameStarted, setGameStarted] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const [whoseTurnIsIt, setTurn] = useState("player");
+  // Initialize variable state to determine when the game is over
+  const [gameOver, setGameOver] = useState(false);
+
+  const [winner, setWinner] = useState("");
 
   // eslint-disable-next-line no-unused-vars
   const [ships, setShips] = useState({
@@ -34,18 +36,16 @@ function App() {
   const { 
     placeShip: placePlayerShip, 
     receiveAttack: playerReceivesAttack,
+    allShipsSunk: pcShipsSunk,
   } = Gameboard(playerBoard, setPlayerBoard);
   
   const { 
     placeShip: placeShipPC,
     receiveAttack: pcReceivesAttack,
+    allShipsSunk: playerShipsSunk,
   } = Gameboard(pcBoard, setBoardPC);
   
-  useEffect(() => {
-    console.log("PROJECT BATTLESHIP");
-    // console.table(playerBoard);
-  });
-
+  // EVENT HANDLERS: 
   const handleStartGame = () => {
     // If prerequisites to start game are valid, place computer ships on board & set state to true
     if (isGameValid) {
@@ -68,19 +68,38 @@ function App() {
     setGameValid(false);
   };
 
-  // Do stuff when the user clicks on a square
-  const clickOnSquare = (e) => {
+  // Do stuff when player clicks on the opponent's board
+  const handleClickOnSquare = (e) => {
+    if (gameOver) return;
     // Obtain string value from element name of the tareget clicked on
     const array = e.target.getAttribute("name").split("");
     const y = Number(array[0]);
     const x = Number(array[1]);
 
-    // Pick a square on PC's board, if the square has already been selected then stop the function
-    const bool = pcReceivesAttack(x, y, "player");
-    if (bool) return;
-    // PC immediately picks a square on Player's board
+    // Player attacks PC board
+    const preventDoubleSelection = pcReceivesAttack(x, y, "player");
+    // If Player clicks on the same square twice, stop this function
+    if (preventDoubleSelection) return;
+    // Checks if PC ships are all sunk
+    const didPlayerWin = pcShipsSunk(pcBoard, setGameOver, setWinner, "player");
+    if (didPlayerWin) return;
+
+    // PC attacks Player board
     playerReceivesAttack(null, null, "pc");
+    // Checks if all Player ships are sunk
+    const didPCWin = playerShipsSunk(playerBoard, setGameOver, setWinner, "pc");
+    if (didPCWin) return;
+
+    // Logic error fixed! Next step:
+      // determine if PLAYER or PC won, and use that to make a modal that pops up and says "Player Wins", etc.
+      // --> initialize a new variable state called "lastTurn", after every turn, set last turn to the player who
+      // just made his turn, if the game is won, then the winner is the last person to have made his last move
+      // don't forget to end the function immediately after the game has been won!
   };
+
+  useEffect(() => {
+    console.log(`The winner is......${winner}!`);
+  });
 
   return (
     <div className="App">
@@ -96,17 +115,22 @@ function App() {
         <RenderBoard 
           board={pcBoard} 
           boardType="pc"
-          className={((!gameHasStarted) ? "pc-board-none": "pc-board")} 
-          handleClick={clickOnSquare}
+          className={((!gameStarted) ? "pc-board-none": "pc-board")} 
+          handleClick={handleClickOnSquare}
         />
       </div>
       <RenderButtons
-        gameStart={gameHasStarted}
+        gameStart={gameStarted}
         gameValid={isGameValid}
         playButton={handleStartGame}
         shuffleButton={handleShuffleButton}
         deleteButton={handleDeleteShips}
       />
+      <div>
+        {
+          (gameOver) ? <h1>Game is over!</h1> : undefined
+        }
+      </div>
     </div>
   );
 }
