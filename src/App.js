@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { autoplacePlayerShips, autoplaceShipsPC } from './components/autoplaceShips';
 import clearArray from './components/clearArray';
 import Gameboard from './components/Gameboard';
 import RenderBoard from './components/RenderBoard.jsx';
 import RenderButtons from './components/RenderButtons';
+import RenderModal from './components/RenderModal';
+import resetGame from './components/resetGame';
 import Ship from './components/Ship';
 
 function App() {
-  
-  // console.clear();
-  
   // Initialize variable state to determine if all conditions are met for the game to begin
   const [isGameValid, setGameValid] = useState(false);
   
@@ -20,7 +19,7 @@ function App() {
   // Initialize variable state to determine when the game is over
   const [gameOver, setGameOver] = useState(false);
 
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState();
 
   // eslint-disable-next-line no-unused-vars
   const [ships, setShips] = useState({
@@ -70,36 +69,34 @@ function App() {
 
   // Do stuff when player clicks on the opponent's board
   const handleClickOnSquare = (e) => {
+
     if (gameOver) return;
+
     // Obtain string value from element name of the tareget clicked on
     const array = e.target.getAttribute("name").split("");
     const y = Number(array[0]);
     const x = Number(array[1]);
 
-    // Player attacks PC board
+    // Player attacks PC board. And if player clicks on the same square twice, stop this function
     const preventDoubleSelection = pcReceivesAttack(x, y, "player");
-    // If Player clicks on the same square twice, stop this function
     if (preventDoubleSelection) return;
-    // Checks if PC ships are all sunk
+    
+    // Checks if Player wins or if opponent ships have all sunk
     const didPlayerWin = pcShipsSunk(pcBoard, setGameOver, setWinner, "player");
     if (didPlayerWin) return;
 
     // PC attacks Player board
     playerReceivesAttack(null, null, "pc");
-    // Checks if all Player ships are sunk
+    
+    // Checks if PC wins or if opponent ships have all sunk
     const didPCWin = playerShipsSunk(playerBoard, setGameOver, setWinner, "pc");
     if (didPCWin) return;
 
     // Logic error fixed! Next step:
-      // determine if PLAYER or PC won, and use that to make a modal that pops up and says "Player Wins", etc.
-      // --> initialize a new variable state called "lastTurn", after every turn, set last turn to the player who
-      // just made his turn, if the game is won, then the winner is the last person to have made his last move
-      // don't forget to end the function immediately after the game has been won!
+    // determine if PLAYER or PC won, and use that to make a modal that pops up and says "Player Wins"
   };
 
-  useEffect(() => {
-    console.log(`The winner is......${winner}!`);
-  });
+  const handleReset = () => resetGame(setPlayerBoard, setBoardPC, setGameValid, setGameStarted, setGameOver, setWinner);
 
   return (
     <div className="App">
@@ -126,11 +123,10 @@ function App() {
         shuffleButton={handleShuffleButton}
         deleteButton={handleDeleteShips}
       />
-      <div>
-        {
-          (gameOver) ? <h1>Game is over!</h1> : undefined
-        }
-      </div>
+      <RenderModal 
+        winner={winner} 
+        playAgainButton={handleReset}
+      />
     </div>
   );
 }
