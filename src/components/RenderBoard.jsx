@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/renderBoard.css';
 
 const RenderBoard = ({ className, board, boardType, handleClick }) => {
   return (
@@ -7,38 +8,43 @@ const RenderBoard = ({ className, board, boardType, handleClick }) => {
         (board && board.length > 0) ?
         board.map((arr, y) => arr.map((box, x) => {
           // Determine square colour
-          let nameOfClass;
+          let targetClassName;
           let dataID;
           if (boardType === "pc") {
             if (box === "ship") {
-              nameOfClass = "grid-box-ship grid-box-ship-pc";
+              targetClassName = "grid-circle-ship-pc";
               dataID = "data-ship-pc";
             } else if (box === "hit") {
-              nameOfClass="grid-box-hit grid-box-hit-pc";
+              targetClassName="grid-circle-hit";
               dataID=`data-hit-pc`;
             } else if (box === "miss") {
-              nameOfClass="grid-box-miss grid-box-miss-pc";
+              targetClassName="grid-circle-miss";
               dataID=`data-miss-pc`;
             } else {
-              nameOfClass = "grid-box"; 
               dataID = "grid-box-id";
+              targetClassName = "";
             }
           } else {
             if (box === "ship") {
-              nameOfClass = "grid-box-ship grid-box-ship-player";
+              targetClassName = "grid-circle-ship-player";
               dataID = "data-ship-player";
             } else if (box === "hit") {
-              className = "grid-box-hit grid-box-hit-player"; 
+              targetClassName = "grid-circle-hit"; 
               dataID = "data-hit-player";
             } else if (box === "miss") {
-              nameOfClass="grid-box-miss grid-box-miss-player";
+              targetClassName="grid-circle-miss";
               dataID=`data-miss-player`;
             } else {
-              nameOfClass = "grid-box"; 
               dataID = "grid-box-id";
+              targetClassName = "";
             }
           };
-          return <div key={`${y}${x}`} name={`${y}${x}`} className={nameOfClass} data-testid={dataID} onClick={handleClick}></div>;
+          
+          return (
+            <div key={`${y}${x}`} className="grid-box" name={`${y}${x}`} data-testid={dataID} onClick={handleClick}>
+              <div name={`${y}${x}`} className={`grid-circle ${targetClassName}`}></div>
+            </div>
+          );
         })) :
         "Loading..."
       }

@@ -6,81 +6,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 
 body {
-  background-color: #393a3f;
+  background-color: #0158de;
 }
 
 /* APP COMPONENT */
 .App {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .header h1 {
   color: #f3b251;
-  margin: 30px 0 0 0;
-  font-size: 50px;
+  font-size: 60px;
   text-align: center;
   font-family: 'Goldman', cursive;
 }
 
 .container {
   width: 1010px;
-  margin: 30px auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.player-board {
-  margin: 0 50px;
-  width: 380px;
-  height: 380px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 1px;
-  /* background-color: #f3b2518a;
-  border: 1px solid #f3b251; */
-  background-color: rgba(255, 255, 255, 0.685);
-  border: 1px solid white;
-}
-
-.pc-board {
-  margin: 0 50px;
-  width: 380px;
-  height: 380px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 1px;
-  background-color: #f3b2518a;
-  border: 1px solid #f3b251;
-  cursor: pointer;
-}
-
-.pc-board-none {
-  display: none;
-}
-
-.grid-box {
-  background-color: #393a3f;
-}
-
-.grid-box:hover {
-  background-color: #393a3f54;
-}
-
-.grid-box-ship {
-  background-color: red;
-}
-
-.grid-box-hit {
-  background-color: green;
-}
-
-.grid-box-miss {
-  background-color: blue;
+.container-board {
+  display: flex;
+  align-items: center;
+  margin: 5vh 0 7vh 0;
 }
 
 @media screen and (max-width: 500px) {
@@ -94,6 +51,10 @@ body {
     justify-content: center;
     width: 100vw;
     margin: 30px 0 0 0;
+  }
+
+  .container-board {
+    flex-direction: column;
   }
 
   .player-board {

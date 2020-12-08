@@ -1,19 +1,22 @@
 import React from 'react';
+import "../styles/renderModal.css";
 
 const RenderModal = (props) => {
   if (!props.winner) return <div></div>;
 
-  let theWinner = "";
+  let winningMessage = "";
   if (props.winner === "player") {
-    theWinner = "Player";
+    winningMessage = "YOU WIN!";
   } else if (props.winner === "pc") {
-    theWinner = "Computer"
+    winningMessage = "COMPUTER WINS!"
   }
 
   return (
-    <div className="bg-modal">
-      <h1>{theWinner} has won the game!</h1>
-      <button onClick={props.playAgainButton}>Play Again</button>
+    <div className="modal-bg">
+      <div className="modal">
+        <h1 className="winning-message">{winningMessage}</h1>
+        <button className="play-again-button" onClick={props.playAgainButton}>PLAY AGAIN</button>
+      </div>
     </div>
   );
 };

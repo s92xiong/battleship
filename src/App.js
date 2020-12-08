@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+
 import './App.css';
+
+// Logic components
 import { autoplacePlayerShips, autoplaceShipsPC } from './components/autoplaceShips';
-import clearArray from './components/clearArray';
 import Gameboard from './components/Gameboard';
+import clearArray from './components/clearArray';
+import resetGame from './components/resetGame';
+import Ship from './components/Ship';
+
+// UI Components
 import RenderBoard from './components/RenderBoard.jsx';
 import RenderButtons from './components/RenderButtons';
 import RenderModal from './components/RenderModal';
-import resetGame from './components/resetGame';
-import Ship from './components/Ship';
 
 function App() {
   // Initialize variable state to determine if all conditions are met for the game to begin
@@ -100,29 +105,31 @@ function App() {
 
   return (
     <div className="App">
-      <div className="header">
-        <h1 data-testid="battleship-id">BATTLESHIP</h1>
+      <div className="header"><h1 data-testid="battleship-id">BATTLESHIP</h1></div>
+      <div>
+        <div className="container">
+          <div className="container-board">
+            <RenderBoard 
+              board={playerBoard} 
+              boardType="player"
+              className="player-board"
+            />
+            <RenderBoard 
+              board={pcBoard} 
+              boardType="pc"
+              className={((!gameStarted) ? "pc-board-none": "pc-board")} 
+              handleClick={handleClickOnSquare}
+            />
+          </div>
+          <RenderButtons
+            gameStart={gameStarted}
+            gameValid={isGameValid}
+            playButton={handleStartGame}
+            shuffleButton={handleShuffleButton}
+            deleteButton={handleDeleteShips}
+          />
+        </div>
       </div>
-      <div className="container">
-        <RenderBoard 
-          board={playerBoard} 
-          boardType="player"
-          className="player-board"
-        />
-        <RenderBoard 
-          board={pcBoard} 
-          boardType="pc"
-          className={((!gameStarted) ? "pc-board-none": "pc-board")} 
-          handleClick={handleClickOnSquare}
-        />
-      </div>
-      <RenderButtons
-        gameStart={gameStarted}
-        gameValid={isGameValid}
-        playButton={handleStartGame}
-        shuffleButton={handleShuffleButton}
-        deleteButton={handleDeleteShips}
-      />
       <RenderModal 
         winner={winner} 
         playAgainButton={handleReset}

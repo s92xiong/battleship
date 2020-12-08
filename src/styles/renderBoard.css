@@ -1,0 +1,70 @@
+.player-board {
+  margin: 0 50px;
+  width: 380px;
+  height: 380px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1px;
+  /* background-color: #f3b2518a;
+  border: 1px solid #f3b251; */
+  background-color: #ffffffae;
+  border: 1px solid #ffffff;
+}
+
+.pc-board {
+  margin: 0 50px;
+  width: 450px;
+  height: 450px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1px;
+  background-color: #ffffffae;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}
+
+.pc-board-none {
+  display: none;
+}
+
+.grid-box {
+  background-color: #0158de;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-box:hover {
+  background-color: #015ade94;
+}
+
+.grid-circle {
+  border-radius: 50%;
+  width: 50%;
+  height: 50%;
+}
+
+.grid-circle-ship-player {
+  background-color: #9aa3a8;
+  border-radius: 0%;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-circle-ship-pc {
+  /* background-color: rgb(211, 60, 211);
+  border-radius: 0%;
+  width: 100%;
+  height: 100%; */
+  display: none;
+}
+
+.grid-circle-hit {
+  background-color: #ff0000;
+}
+
+.grid-circle-miss {
+  background-color: #fafafa;
+}

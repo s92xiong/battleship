@@ -1,4 +1,4 @@
-import '../styles/buttons.css';
+import '../styles/renderButtons.css';
 import play from '../images/play.png';
 import shuffle from '../images/shuffle.png';
 import trash from '../images/trash.png';

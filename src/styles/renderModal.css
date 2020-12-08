@@ -1,5 +1,25 @@
-.bg-modal {
+.modal-bg {
+  background-color: rgb(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 40%;
+  height: 40%;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal > * {
+  margin: 5%;
 }
