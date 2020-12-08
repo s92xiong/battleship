@@ -1,5 +1,5 @@
 .modal-bg {
-  background-color: rgb(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.540);
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -13,13 +13,89 @@
 .modal {
   width: 40%;
   height: 40%;
-  background-color: white;
+  background-color: rgb(29, 47, 206);
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Goldman', cursive;
+}
+
+.winning-message {
+  color: #f3b251;
+}
+
+.play-again-button {
+  font-family: 'Goldman', cursive;
+  font-size: 18px;
+  background-color: rgb(211, 26, 26);
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 0, 0);
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.play-again-button:hover {
+  background-color: rgba(255, 0, 0, 0.726);
+  border: 1px solid #ffd494;
 }
 
 .modal > * {
   margin: 5%;
+}
+
+.fade-in {
+  animation: fadeIn ease 1s;
+  -webkit-animation: fadeIn ease 1s;
+  -moz-animation: fadeIn ease 1s;
+  -o-animation: fadeIn ease 1s;
+  -ms-animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
 }

@@ -12,7 +12,7 @@ const RenderModal = (props) => {
   }
 
   return (
-    <div className="modal-bg">
+    <div className="modal-bg fade-in">
       <div className="modal">
         <h1 className="winning-message">{winningMessage}</h1>
         <button className="play-again-button" onClick={props.playAgainButton}>PLAY AGAIN</button>
