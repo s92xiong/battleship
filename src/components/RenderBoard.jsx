@@ -41,8 +41,8 @@ const RenderBoard = ({ className, board, boardType, handleClick }) => {
           };
           
           return (
-            <div key={`${y}${x}`} className="grid-box" name={`${y}${x}`} data-testid={dataID} onClick={handleClick}>
-              <div name={`${y}${x}`} className={`grid-circle ${targetClassName}`}></div>
+            <div key={`${y}${x}`} className="grid-box" name={`${y}${x}`} onClick={handleClick}>
+              <div name={`${y}${x}`} className={`grid-circle ${targetClassName}`} data-testid={dataID} ></div>
             </div>
           );
         })) :

@@ -96,9 +96,6 @@ function App() {
     // Checks if PC wins or if opponent ships have all sunk
     const didPCWin = playerShipsSunk(playerBoard, setGameOver, setWinner, "pc");
     if (didPCWin) return;
-
-    // Logic error fixed! Next step:
-    // determine if PLAYER or PC won, and use that to make a modal that pops up and says "Player Wins"
   };
 
   const handleReset = () => resetGame(setPlayerBoard, setBoardPC, setGameValid, setGameStarted, setGameOver, setWinner);
