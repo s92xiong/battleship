@@ -26,15 +26,15 @@ function App() {
 
   const [winner, setWinner] = useState();
 
-  // eslint-disable-next-line no-unused-vars
-  const [ships, setShips] = useState({
-    playerShips: [ Ship(2, null), Ship(3, null), Ship(3, null), Ship(4, null), Ship(5, null)],
-    pcShips: [ Ship(2, null), Ship(3, null), Ship(3, null), Ship(4, null), Ship(5, null)],
-  });
-  
   // Initialize array state for player and computer battleship board
   const [playerBoard, setPlayerBoard] = useState(Array(10).fill([]).map(array => Array(10).fill(null)));
   const [pcBoard, setBoardPC] = useState(Array(10).fill([]).map(array => Array(10).fill(null)));
+
+  // Ship Objects
+  const ships = {
+    playerShips: [ Ship(2, null), Ship(3, null), Ship(3, null), Ship(4, null), Ship(5, null)],
+    pcShips: [ Ship(2, null), Ship(3, null), Ship(3, null), Ship(4, null), Ship(5, null)],
+  };
   
   // Return objects from Gameboard using player & computer state as arguments
   const { 
@@ -49,7 +49,6 @@ function App() {
     allShipsSunk: playerShipsSunk,
   } = Gameboard(pcBoard, setBoardPC);
   
-  // EVENT HANDLERS: 
   const handleStartGame = () => {
     // If prerequisites to start game are valid, place computer ships on board & set state to true
     if (isGameValid) {

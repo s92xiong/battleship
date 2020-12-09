@@ -55,10 +55,13 @@ function Gameboard (board, setBoard) {
   };
 
   const allShipsSunk = (opponentBoard, setGameOver, setWinner, attacker) => {
+    
     let tempString = attacker;
     let sum = 0;
-    opponentBoard.forEach(row => row.forEach(square => (square === "hit") ? sum++ : null));
-    if (sum === 2) {
+    
+    opponentBoard.forEach(array => array.forEach(square => (square === "hit") ? sum++ : null));
+    
+    if (sum === 17) {
       setGameOver(true);
       setWinner(tempString);
       // console.log(tempString);
