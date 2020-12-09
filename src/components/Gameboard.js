@@ -61,7 +61,7 @@ function Gameboard (board, setBoard) {
     
     opponentBoard.forEach(array => array.forEach(square => (square === "hit") ? sum++ : null));
     
-    if (sum === 17) {
+    if (sum === 1) {
       setGameOver(true);
       setWinner(tempString);
       // console.log(tempString);

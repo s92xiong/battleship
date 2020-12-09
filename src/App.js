@@ -101,30 +101,28 @@ function App() {
 
   return (
     <div className="App">
-      <div className="header"><h1 data-testid="battleship-id">BATTLESHIP</h1></div>
-      <div>
-        <div className="container">
-          <div className="container-board">
-            <RenderBoard 
-              board={playerBoard} 
-              boardType="player"
-              className="player-board"
-            />
-            <RenderBoard 
-              board={pcBoard} 
-              boardType="pc"
-              className={((!gameStarted) ? "pc-board-none": "pc-board")} 
-              handleClick={handleClickOnSquare}
-            />
-          </div>
-          <RenderButtons
-            gameStart={gameStarted}
-            gameValid={isGameValid}
-            playButton={handleStartGame}
-            shuffleButton={handleShuffleButton}
-            deleteButton={handleDeleteShips}
+      <div className="container">
+        <div className="header"><h1 data-testid="battleship-id">BATTLESHIP</h1></div>
+        <div className="container-board">
+          <RenderBoard 
+            board={playerBoard} 
+            boardType="player"
+            className="player-board"
+          />
+          <RenderBoard 
+            board={pcBoard} 
+            boardType="pc"
+            className={((!gameStarted) ? "pc-board-none": "pc-board")} 
+            handleClick={handleClickOnSquare}
           />
         </div>
+        <RenderButtons
+          gameStart={gameStarted}
+          gameValid={isGameValid}
+          playButton={handleStartGame}
+          shuffleButton={handleShuffleButton}
+          deleteButton={handleDeleteShips}
+        />
       </div>
       <RenderModal 
         winner={winner} 

@@ -68,3 +68,17 @@
 .grid-circle-miss {
   background-color: #fafafa;
 }
+
+@media screen and (max-width: 950px) {
+  
+  .player-board {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 50px;
+  }
+
+  .pc-board {
+    width: 300px;
+    height: 300px;
+  }
+}
